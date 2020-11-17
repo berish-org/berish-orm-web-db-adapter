@@ -1,0 +1,58 @@
+{
+  "name": "@berish/orm-web-db-adapter",
+  "version": "1.0.0",
+  "description": "Адаптер базы данных по сети для @berish/orm",
+  "main": "build/index.js",
+  "typings": "build/index.d.ts",
+  "repository": "git@gitlab.com:berish/packages/berish-orm-web-db-adapter.git",
+  "author": "Berishev Ravil <quadraticteam@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "keywords": [
+    "berish",
+    "helper",
+    "native",
+    "js",
+    "ts",
+    "typescript",
+    "Berishev",
+    "Ravil",
+    "quadraticteam",
+    "jest",
+    "package"
+  ],
+  "scripts": {
+    "test": "jest --config jestconfig.json",
+    "test:dev": "jest --config jestconfig.json --watch --verbose=false",
+    "build": "tsc -p .",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
+  },
+  "files": [
+    "build/**/*"
+  ],
+  "peerDependencies": {
+    "@berish/orm": "^0.2.0"
+  },
+  "devDependencies": {
+    "@berish/orm": "^0.2.0",
+    "@types/faker": "^4.1.5",
+    "@types/jest": "^24.0.15",
+    "faker": "^4.1.0",
+    "jest": "^24.8.0",
+    "prettier": "^1.18.2",
+    "ts-jest": "^24.0.2",
+    "tslint": "^5.18.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.5.2"
+  },
+  "dependencies": {
+    "@berish/emitter": "^1.1.0",
+    "@berish/try-call": "^1.0.0"
+  }
+}
