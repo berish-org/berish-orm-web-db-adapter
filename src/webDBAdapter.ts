@@ -1,5 +1,5 @@
 import Emitter from '@berish/emitter';
-import { BaseDBAdapter, IBaseDBItem, QueryData, QueryDataSchema, Query } from '@berish/orm';
+import { BaseDBAdapter, IBaseDBItem, Query, QueryData, QueryDataSchema } from '@berish/orm';
 import tryCall from '@berish/try-call';
 
 export interface IWebDBAdapterParams {

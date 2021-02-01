@@ -1,4 +1,4 @@
-import { baseDBMethods, Entity, QueryData, QueryDataSchema, Manager, Query } from '@berish/orm';
+import { baseDBMethods, Entity, Manager, Query, QueryData, QueryDataSchema } from '@berish/orm';
 
 interface IDbReceiverParams {
   by?: <T extends Entity>(query: Query<T>) => Query<T> | Promise<Query<T>>;
