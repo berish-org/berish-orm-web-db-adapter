@@ -1,5 +1,5 @@
 import Emitter from '@berish/emitter';
-import { BaseDBAdapter, IBaseDBItem, IQueryData, Query } from '@berish/orm';
+import { BaseDBAdapter, IBaseDBItem, QueryData, QueryDataSchema, Query } from '@berish/orm';
 import tryCall from '@berish/try-call';
 
 export interface IWebDBAdapterParams {
@@ -19,7 +19,11 @@ export class WebDBAdapter extends BaseDBAdapter<IWebDBAdapterParams> {
     return void 0;
   }
 
-  public async get<T>(query: IQueryData) {
+  public count(query: QueryData<QueryDataSchema>): Promise<number> {
+    return this.params.sendData<number>('count', [query]);
+  }
+
+  public async get<T>(query: QueryData<QueryDataSchema>) {
     return this.params.sendData<T>('get', [query]);
   }
 
@@ -31,7 +35,7 @@ export class WebDBAdapter extends BaseDBAdapter<IWebDBAdapterParams> {
     return this.params.sendData<void>('update', [tableName, items]);
   }
 
-  public async delete(data: IQueryData) {
+  public async delete(data: QueryData<QueryDataSchema>) {
     return this.params.sendData<void>('delete', [data]);
   }
 
@@ -39,11 +43,11 @@ export class WebDBAdapter extends BaseDBAdapter<IWebDBAdapterParams> {
     return this.params.sendData<void>('index', [tableName, indexName, keys]);
   }
 
-  public async find<T>(query: IQueryData) {
+  public async find<T>(query: QueryData<QueryDataSchema>) {
     return this.params.sendData<T>('find', [query]);
   }
 
-  public subscribe<T>(query: IQueryData, cb: (oldVal: T, newVal: T) => any) {
+  public subscribe<T>(query: QueryData<QueryDataSchema>, cb: (oldVal: T, newVal: T) => any) {
     const hash = Query.getHash(query);
     const methodName = 'subscribe';
     const eventName = `${hash}_${methodName}`;

@@ -1,4 +1,4 @@
-import { baseDBMethods, Entity, IQueryData, Manager, Query } from '@berish/orm';
+import { baseDBMethods, Entity, QueryData, QueryDataSchema, Manager, Query } from '@berish/orm';
 
 interface IDbReceiverParams {
   by?: <T extends Entity>(query: Query<T>) => Query<T> | Promise<Query<T>>;
@@ -24,6 +24,11 @@ export class WebDBReceiver {
 
   public async call<T extends keyof Manager['db']>(name: T, ...args: any[]) {
     if (baseDBMethods.indexOf(name) === -1) throw new Error('orm db method not found');
+    if (name === 'count') {
+      const [query] = args as dbMethodType<'count'>;
+      const queryWithBy = await this.withBy(query);
+      return this.manager.db.count(queryWithBy);
+    }
     if (name === 'get') {
       const [query] = args as dbMethodType<'get'>;
       const queryWithBy = await this.withBy(query);
@@ -58,7 +63,7 @@ export class WebDBReceiver {
     }
   }
 
-  private async withBy(queryData: IQueryData) {
+  private async withBy(queryData: QueryData<QueryDataSchema>) {
     if (!queryData) throw new Error('FP-ORM: queryData is undefined');
     const query = Query.fromJSON(queryData);
     const withByQuery = (await (this.params.by && this.params.by(query))) || query;
