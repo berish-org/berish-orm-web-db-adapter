@@ -37,7 +37,7 @@
     "build/**/*"
   ],
   "peerDependencies": {
-    "@berish/orm": "^0.4.0"
+    "@berish/orm": "^0.8.0"
   },
   "devDependencies": {
     "@berish/orm": "^0.8.0",

@@ -20,7 +20,7 @@ export interface IWebDBAdapterConstructorParams {
 }
 
 export class WebDBAdapter extends BaseDBAdapter<IWebDBAdapterParams> {
-  private _emitter: EventEmitter<any> = null;
+  private _emitter: EventEmitter<any> = new EventEmitter();
   private _constructorParams: IWebDBAdapterConstructorParams = null;
 
   // Здесь хранятся кникальные запросы к списку callback (по queryHash)
@@ -36,7 +36,6 @@ export class WebDBAdapter extends BaseDBAdapter<IWebDBAdapterParams> {
 
   public initialize = async (params: IWebDBAdapterParams) => {
     this.params = params;
-    this._emitter = new EventEmitter();
   };
 
   public close = async () => {
@@ -103,7 +102,7 @@ export class WebDBAdapter extends BaseDBAdapter<IWebDBAdapterParams> {
     };
   };
 
-  public connect = () => {
+  public connectSubscriptions = () => {
     // Здесь мы подключаем все реальные callback к текущим
     const eventNames = LINQ.from(this._emitter['_events'])
       .map((m) => m.eventName)
