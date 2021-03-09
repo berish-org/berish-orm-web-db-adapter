@@ -1,5 +1,5 @@
 describe('test adapter', () => {
-  test('echo', done => {
+  test('echo', (done) => {
     done();
   });
 });

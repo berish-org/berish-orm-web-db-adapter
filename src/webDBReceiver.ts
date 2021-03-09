@@ -92,7 +92,7 @@ export class WebDBReceiver {
 
     const eventHash = this._cacheEmitter.subscribe<{ oldValue: IBaseDBItem; newValue: IBaseDBItem }>(
       `subscribe_${queryHash}`,
-      callback => {
+      (callback) => {
         const unsubscribe = this.manager.db.subscribe(queryData, (oldValue, newValue) =>
           callback({ oldValue, newValue }),
         );
@@ -106,7 +106,7 @@ export class WebDBReceiver {
     this._subscribeEventHashes.push(eventHash);
 
     return () => {
-      this._subscribeEventHashes = this._subscribeEventHashes.filter(m => m !== eventHash);
+      this._subscribeEventHashes = this._subscribeEventHashes.filter((m) => m !== eventHash);
       this._cacheEmitter.unsubscribe(eventHash);
     };
   };
