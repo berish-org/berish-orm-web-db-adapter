@@ -5,13 +5,8 @@ import { IWebDBAdapterParams } from './webDBAdapter';
 export type WebDBMethodParameters<N extends keyof Manager['db']> = Parameters<Manager['db'][N]>;
 export type WebDBMethodReturn<N extends keyof Manager['db']> = ReturnType<Manager['db'][N]>;
 
-interface SubscriptionEventMap {
-  [queryHash: string]: { oldValue: any; newValue: any };
-}
-
 export class WebDBReceiver {
   private _manager: Manager = null;
-  // private _subscriptionEmitter = new EventEmitter<SubscriptionEventMap>();
   private _cacheEmitter = new CacheEmitter();
   private _subscribeEventHashes: string[] = [];
 
@@ -63,29 +58,6 @@ export class WebDBReceiver {
   public find = (...[queryData]: WebDBMethodParameters<'find'>) => {
     return this.manager.db.find(queryData);
   };
-
-  // public subscribe = (...[queryData, callback]: WebDBMethodParameters<'subscribe'>) => {
-  //   const queryHash = Query.getHash(queryData);
-
-  //   if (!this._subscriptionEmitter.hasEvent(queryHash)) {
-  //     console.log('REAL SUBSCRIBE');
-  //     const unsubcribe = this.manager.db.subscribe(queryData, (oldValue, newValue) => {
-  //       this._subscriptionEmitter.emitSync(queryHash, { oldValue, newValue });
-  //     });
-
-  //     const triggerOffEventHash = this._subscriptionEmitter.triggerOffEvent(queryHash, () => {
-  //       console.log('REAL UNSUBSCRIBE');
-  //       unsubcribe();
-
-  //       this._subscriptionEmitter.offTriggerOff(triggerOffEventHash);
-  //     });
-  //   }
-
-  //   console.log('EVENT SUBSCRIBE');
-  //   const eventHash = this._subscriptionEmitter.on(queryHash, ({ oldValue, newValue }) => callback(oldValue, newValue));
-
-  //   return () => this._subscriptionEmitter.off(eventHash);
-  // };
 
   public subscribe = (...[queryData, callback]: WebDBMethodParameters<'subscribe'>) => {
     const queryHash = Query.getHash(queryData);

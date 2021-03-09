@@ -84,7 +84,7 @@ export class WebDBAdapter extends BaseDBAdapter<IWebDBAdapterParams> {
     return this.params.find(query);
   };
 
-  public subscribe = (
+  public subscribe = async (
     data: QueryData<QueryDataSchema>,
     callback: (oldValue: IBaseDBItem, newValue: IBaseDBItem) => any,
   ) => {
@@ -93,7 +93,7 @@ export class WebDBAdapter extends BaseDBAdapter<IWebDBAdapterParams> {
     const queryHash: string = Query.getHash(data);
 
     if (!this._emitter.hasEvent(queryHash)) {
-      this._realSubscribe(data);
+      await this._realSubscribe(data);
     }
 
     const eventHash = this._emitter.on(queryHash, ({ oldValue, newValue }) => callback(oldValue, newValue));
@@ -114,13 +114,13 @@ export class WebDBAdapter extends BaseDBAdapter<IWebDBAdapterParams> {
     }
   };
 
-  private _realSubscribe = (data: QueryData<QueryDataSchema>) => {
+  private _realSubscribe = async (data: QueryData<QueryDataSchema>) => {
     const queryHash: string = Query.getHash(data);
 
     // Добавляем Query к списку уникальных
     if (this._uniqueQueries.filter((m) => Query.getHash(m) === queryHash).length <= 0) this._uniqueQueries.push(data);
 
-    const unsubcribe = this.params.subscribe(data, (oldValue, newValue) =>
+    const unsubcribe = await this.params.subscribe(data, (oldValue, newValue) =>
       this._emitter.emitSync(queryHash, { oldValue, newValue }),
     );
 
