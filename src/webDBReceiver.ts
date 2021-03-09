@@ -116,5 +116,6 @@ export class WebDBReceiver {
     for (const hash of this._subscribeEventHashes) {
       this._cacheEmitter.unsubscribe(hash);
     }
+    this._subscribeEventHashes = [];
   };
 }

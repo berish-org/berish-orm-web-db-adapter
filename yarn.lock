@@ -208,10 +208,10 @@
   resolved "https://registry.yarnpkg.com/@berish/linq/-/linq-1.1.0.tgz#da62d357b65bbd0f3c0bd2aa930d21b6bb05568a"
   integrity sha512-KKwyulTigMpPudw/wptGx9oJvaH9yYB7ulxm6GMytAJUqvcYufrBcOF5jpe1Gqw4o1EYLKcN2/1NR+jxhtBOmQ==
 
-"@berish/orm@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@berish/orm/-/orm-0.8.0.tgz#a1ff43e8303c6baa44256eeebce0b7cd3f118aac"
-  integrity sha512-NZm6bskSo9+D2yLKdiLoODNNNf7t7pieMYPTaxFUm+qIbvRrcX5LGVDvpGXMWy35jeebYxTGhFvzE4xJLtJOjg==
+"@berish/orm@^0.9.1":
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/@berish/orm/-/orm-0.9.1.tgz#3260ea1c2b47636cae3a752ce9645ae121efab01"
+  integrity sha512-ExECMa8MDCMv07NXstR1bsG/QYcGzOMjS7Hsmxgt75E6pfw0fxSjHJvLEFy0CQ14C9z+cZbuFLN7VY1hzAFS/A==
   dependencies:
     "@berish/class" "^1.0.2"
     "@berish/emitter" "^1.4.1"
