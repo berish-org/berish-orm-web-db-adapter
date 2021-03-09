@@ -109,10 +109,8 @@ export class WebDBAdapter extends BaseDBAdapter<IWebDBAdapterParams> {
       .distinct((m) => m);
 
     for (const queryHash of eventNames) {
-      if (!this._emitter.hasEvent(queryHash)) {
-        const data = this._uniqueQueries.filter((m) => Query.getHash(m) === queryHash)[0];
-        if (data) this._realSubscribe(data);
-      }
+      const queryData = this._uniqueQueries.filter((m) => Query.getHash(m) === queryHash)[0];
+      if (queryData) this._realSubscribe(queryData);
     }
   };
 
