@@ -25,6 +25,7 @@ export class WebDBAdapter extends BaseDBAdapter<IWebDBAdapterParams> {
 
   // Здесь хранятся кникальные запросы к списку callback (по queryHash)
   private _uniqueQueries: QueryData<QueryDataSchema>[] = [];
+  private _offTriggers: string[] = [];
 
   constructor(constructorParams: IWebDBAdapterConstructorParams) {
     super();
@@ -114,6 +115,12 @@ export class WebDBAdapter extends BaseDBAdapter<IWebDBAdapterParams> {
     }
   };
 
+  public disconnectSubscriptions = () => {
+    for (const eventHash of this._offTriggers) {
+      this._emitter.offTriggerOff(eventHash);
+    }
+  };
+
   private _realSubscribe = async (data: QueryData<QueryDataSchema>) => {
     const queryHash: string = Query.getHash(data);
 
@@ -130,7 +137,10 @@ export class WebDBAdapter extends BaseDBAdapter<IWebDBAdapterParams> {
 
       if (this._constructorParams.isConnected()) unsubcribe();
 
+      this._offTriggers = this._offTriggers.filter((m) => m !== triggerOffEventHash);
       this._emitter.offTriggerOff(triggerOffEventHash);
     });
+
+    this._offTriggers.push(triggerOffEventHash);
   };
 }
