@@ -119,6 +119,8 @@ export class WebDBAdapter extends BaseDBAdapter<IWebDBAdapterParams> {
     for (const eventHash of this._offTriggers) {
       this._emitter.offTriggerOff(eventHash);
     }
+
+    this._offTriggers = [];
   };
 
   private _realSubscribe = async (data: QueryData<QueryDataSchema>) => {
