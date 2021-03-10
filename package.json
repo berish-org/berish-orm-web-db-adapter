@@ -1,6 +1,6 @@
 {
   "name": "@berish/orm-web-db-adapter",
-  "version": "1.3.5",
+  "version": "1.3.6",
   "description": "Адаптер базы данных по сети для @berish/orm",
   "main": "build/index.js",
   "typings": "build/index.d.ts",
